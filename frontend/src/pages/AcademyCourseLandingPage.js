@@ -16,7 +16,86 @@ import circle3 from "./images/academyicon3.png";
 
 import "./AcademyCourseLandingPage.css";
 
+const listing = [
+  {
+    id: 1,
+    title1: "Course",
+    title2: " 1",
+    courseheading: "Coming soon",
+    coursetext:
+      "Lorem ipsum dolor sit amet, consec adipiscing eli consectetuer adipiscing eli consectetuer adipiscing eli Lorem. eli consectetuer adipiscing eli Lorem. eli consectetuer",
+  },
+  {
+    id: 2,
+    title1: "Course",
+    title2: " 2",
+    courseheading: "Coming soon",
+    coursetext:
+      "Lorem ipsum dolor sit amet, consec adipiscing eli consectetuer adipiscing eli consectetuer adipiscing eli Lorem. eli consectetuer adipiscing eli Lorem. eli consectetuer",
+  },
+  {
+    id: 3,
+    title1: "Course",
+    title2: " 3",
+    courseheading: "Coming soon",
+    coursetext:
+      "Lorem  dolor sit amet, consec adipiscing eli consectetuer adipiscing eli consectetuer adipiscing eli Lorem. eli consectetuer adipiscing eli Lorem. eli consectetuer",
+  },
+  {
+    id: 4,
+    title1: "Course",
+    title2: "4",
+    courseheading: "Coming soon",
+    coursetext:
+      "Lorem ipsum dolor sit amet, consec adipiscing eli consectetuer adipiscing eli consectetuer adipiscing eli Lorem. eli consectetuer adipiscing eli Lorem. eli consectetuer",
+  },
+];
+const pathcard = [
+  {
+    title1: "Coming",
+    title2: " Soon",
+    image: "https://via.placeholder.com/500",
+    content:
+      "Lorem ipsum dolor sit amet,  consectetuer adipiscing eli consectetuer adipiscing eli consectetuer adipiscing eli  Lorem.Lorem ipsum dolor sit amet,  consectetuer adipiscing eli consectetuer adipiscing eli consectetuer adipiscing eli Lorem.Lorem ipsum dolor sit amet,  m.Lorem ipsum dolor sit amet,  consectetuer adipiscing eli consectetuer adipiconsectetuer adipiscing eli consectetuer adipiscing eli consectetuer adipiscing eli Lorem",
+    courses: [
+      { course_name1: "Course 1", cousrseid: "fjsnfkjnkfa" },
+      { course_name1: "Course 2", cousrseid: "fjsnfkjnkfa" },
+      { course_name1: "Course 3", cousrseid: "fjsnfkjnkfa" },
+    ],
+  },
+];
+let renderListing = [];
+let renderListing2 = [];
+
 function AcademyCourseLandingPage() {
+  let temp = [];
+  renderListing = [];
+  renderListing2 = [];
+  for (let i = 0; i < listing.length; i++) {
+    if (i % 3 === 0 && i > 0) {
+      renderListing.push(temp);
+      temp = [];
+    }
+    temp.push(listing[i]);
+  }
+  if (temp.length !== 0) {
+    renderListing.push(temp);
+    temp = [];
+
+    let temp2 = [];
+    for (let i = 0; i < listing.length; i++) {
+      if (i % 2 === 0 && i > 0) {
+        renderListing2.push(temp2);
+        temp2 = [];
+      }
+      temp2.push(listing[i]);
+    }
+    if (temp2.length !== 0) {
+      renderListing2.push(temp2);
+      temp2 = [];
+    }
+  }
+
   const { data: courseCardData, loading: courseCardLoading } = useQuery(
     coursecarddetails
   );
@@ -25,24 +104,10 @@ function AcademyCourseLandingPage() {
     pathcarddetails
   );
 
-  let renderListing2 = [];
-  if (courseCardData) {
-    let temp2 = [];
-    for (let i = 0; i < courseCardData.findall.length; i++) {
-      if (i % 2 === 0 && i > 0) {
-        renderListing2.push(temp2);
-        temp2 = [];
-      }
-      temp2.push(courseCardData.findall[i]);
-    }
-    if (temp2.length !== 0) {
-      renderListing2.push(temp2);
-      temp2 = [];
-    }
-  }
   return (
     <>
       <AcademyNavbar />
+
       <div className="wrap">
         <div className="c"></div>
         <div className="c"></div>
@@ -345,6 +410,7 @@ function AcademyCourseLandingPage() {
         <div className="c"></div>
         <div className="c"></div>
       </div>
+
       <div className="academy-landing-maincontainer">
         <div className="academy-landing-container">
           <div className="academy-login-container">
@@ -395,80 +461,38 @@ function AcademyCourseLandingPage() {
             <p className="academy-courses-heading">Cyber Security Courses</p>
 
             {courseCardLoading && <div>Loading...</div>}
-            <MediaQuery minWidth={741}>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+              }}
+            >
               {courseCardData &&
-                renderListing2 &&
-                renderListing2 !== [] &&
-                renderListing2.map((item) => {
-                  console.log(item);
+                courseCardData.findall.map((item) => {
                   return (
                     <>
                       <div
                         style={{
                           display: "flex",
-                          flexDirection: "row",
-                          justifyContent:
-                            item.length === 1 ? "center" : "space-evenly",
+                          justifyContent: "center",
                         }}
                       >
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <CourseComponent
-                            title1={item[0].course_name1}
-                            title2={item[0].course_name2}
-                            courseheading={item[0].subtitle}
-                            coursetext={item[0].description}
-                            course_id={item[0].id}
-                            flag={false}
-                          />
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                          }}
-                        >
-                          {item.length === 2 && (
-                            <CourseComponent
-                              title1={item[1].course_name1}
-                              title2={item[1].course_name2}
-                              courseheading={item[1].subtitle}
-                              coursetext={item[1].description}
-                              course_id={item[1].id}
-                              flag={false}
-                            />
-                          )}
-                        </div>
+                        {console.log(item.course_name2)}
+                        <CourseComponent
+                          title1={item.course_name1}
+                          title2={item.course_name2}
+                          courseheading={item.subtitle}
+                          coursetext={item.description}
+                          course_id={item.course_id}
+                          flag={true}
+                        />
                       </div>
                     </>
                   );
                 })}
-            </MediaQuery>
-            <MediaQuery maxWidth={740}>
-              {courseCardData &&
-                courseCardData.findall.map((item) => (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <CourseComponent
-                      title1={item.course_name1}
-                      title2={item.course_name2}
-                      courseheading={item.subtitle}
-                      coursetext={item.description}
-                      course_id={item.id}
-                      flag={false}
-                    />
-                  </div>
-                ))}
-              <></>
-            </MediaQuery>
+            </div>
             <div className="academy-explore-container">
               <div style={{ cursor: "pointer", zIndex: 10 }}>
                 <p>
@@ -486,7 +510,7 @@ function AcademyCourseLandingPage() {
               return (
                 <div className="academy-pathcard-container">
                   <Pathcard
-                    path_id={item.id}
+                    path_id={item.path_id}
                     title1={item.path_title1}
                     title2={item.path_title2}
                     courses={item.courses}

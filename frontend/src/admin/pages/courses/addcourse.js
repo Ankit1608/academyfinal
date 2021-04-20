@@ -32,10 +32,11 @@ function AddCourse() {
   const [coursetitle1, Setcoursetitle1] = useState("");
   const [coursetitle2, Setcoursetitle2] = useState("");
   const [flashes, Setflashes] = useState("");
-  const [photo, Setphoto] = useState("");
+
   const [coursesubtitle, Setcoursesubtitle] = useState("");
   const [description, Setdescription] = useState("");
   const [difficulty, Setdifficulty] = useState("");
+  const [badgename, Setbadgename] = useState("");
 
   const [inputFields, setInputFields] = useState([
     { id: uuidv4(), sections: ["fsjk"] },
@@ -79,7 +80,6 @@ function AddCourse() {
         course_name1: coursetitle1,
         course_name2: coursetitle2,
         subtitle: coursesubtitle,
-        photo: photo,
         description: description,
         difficulty: difficulty,
         flashes: flashes,
@@ -415,22 +415,28 @@ function AddCourse() {
                   }}
                 />
               </div>
+
               <div>
                 <TextField
                   style={{
                     width: "30%",
                   }}
                   required
-                  name="photo"
-                  label="Photo Link"
+                  name="badge"
+                  label="Badge Name"
                   variant="filled"
-                  value={photo}
-                  placeholder="Photo Link"
+                  value={badgename}
+                  placeholder="Badge Name"
                   onChange={(e) => {
-                    Setphoto(e.target.value);
+                    Setbadgename(e.target.value);
                   }}
                 />
+
+                <Button style={{ marginTop: "16px", backgroundColor: "#ccc" }}>
+                  Upload Badge
+                </Button>
               </div>
+
               <div>
                 <TextField
                   style={{ width: "150px", marginBottom: "30px" }}

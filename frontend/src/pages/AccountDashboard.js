@@ -299,7 +299,10 @@ function AccountDashboard({ history }) {
             </div>
           </div>
           {userdata_data && (
-            <Buybolts flashes={userdata_data.userdata.flashes} />
+            <Buybolts
+              flashes={userdata_data.userdata.flashes}
+              history={history}
+            />
           )}
           <Subscription />
           <Discord />

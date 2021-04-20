@@ -1,35 +1,42 @@
 import { gql } from "@apollo/client";
 
-const findallUsers = gql`
+const finduser = gql`
   query {
-    findallUsers {
+    finduser {
       id
       name
-      user_name
       email
       tokenVersion
+      profession
+      flashes
+      profileimageurl
       badges {
+        course_id
+        course_name
         badge_name
-        badge_image
+        course_badge
       }
-      certificates {
-        certificate_name
-        certificate_image
+      certificate {
+        path_id
+        path_name
+        certificate_version
       }
     }
   }
 `;
 const findallPayments = gql`
   query {
-    findallPayments {
+    finduser {
       email
-      transaction_id
-      time_stamp
-      amount
-      flashes
-      invoice
-      discount_coupon {
-        discount
+      payments {
+        transaction_id
+        time_stamp
+        amount
+        flashes
+        discount_coupon {
+          discount_coupon
+          discount_percent
+        }
       }
     }
   }
@@ -55,7 +62,6 @@ const findallpaths = gql`
   query {
     findallpaths {
       id
-      path_id
       path_title1
       path_title2
       difficulty
@@ -135,7 +141,7 @@ const addcourse = gql`
   }
 `;
 export {
-  findallUsers,
+  finduser,
   findallPayments,
   findall,
   findallpaths,

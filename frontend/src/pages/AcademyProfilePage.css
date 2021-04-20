@@ -206,4 +206,11 @@ input[type="text"]:focus {
   .academy-profile-information-inputcontainer {
     width: 280px;
   }
+  .academy-profile-information-inputmain-container {
+    font-size: 12px;
+  }
+  input[type="text"],
+  select {
+    width: 50%;
+  }
 }

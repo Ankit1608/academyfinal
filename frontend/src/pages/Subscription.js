@@ -8,8 +8,10 @@ import merch3 from "./images/tshirt2.png";
 function Subscription() {
   return (
     <div className="subscription-parent-container">
-      <p className="merch-titlecontainer">Merchandise</p>
-
+      <div className="subscription-title-wrapper">
+        <p className="merch-titlecontainer">Merchandise</p>
+        <p className="merch-titlecontainer2">Soon</p>
+      </div>
       <div className="merch-maincontainer">
         <img src={merch1} className="merch-imagecontainer" />
         <img src={merch2} className="merch-imagecontainer-cap" />

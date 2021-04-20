@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import { userid, profilesettingsuser, logout } from "../../graphql/gql";
 import { useQuery, useLazyQuery, useMutation } from "@apollo/react-hooks";
 
-import logo from "../images/logo.png";
+import logo from "../images/mainlogo.png";
 
 function AcademyNavbar({ authenticated }) {
   const [click, setClick] = useState(false);
@@ -89,7 +89,7 @@ function AcademyNavbar({ authenticated }) {
                   onMouseLeave={onMouseLeave}
                 >
                   <Link
-                    to="/"
+                    to=""
                     className="nav-links"
                     activeClass="active"
                     onClick={closeMobileMenu}

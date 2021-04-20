@@ -23,6 +23,11 @@ import AddPath from "./admin/pages/paths/addpath";
 import UsersGist from "./admin/pages/users/usergist";
 import UsersPayments from "./admin/pages/users/userpayments";
 import UsersSecurity from "./admin/pages/users/usersecurity";
+import Certificate from "./pages/components/Certificate";
+import Socialhandle from "./admin/pages/pages/Socialhandle";
+import Privacypolicy from "./admin/pages/pages/Privacypolicy";
+import Termsandcondition from "./admin/pages/pages/Termsandcondition";
+import PaymentBolts from "./pages/PaymentBolts";
 
 function Landing() {
   return (
@@ -52,6 +57,11 @@ function Landing() {
         <Route exact path="/usersgist" component={UsersGist} />
         <Route exact path="/userspayments" component={UsersPayments} />
         <Route exact path="/userssecurity" component={UsersSecurity} />
+        <Route exact path="/certificate" component={Certificate} />
+        <Route exact path="/socialhandle" component={Socialhandle} />
+        <Route exact path="/privacypolicy" component={Privacypolicy} />
+        <Route exact path="/termsandcondition" component={Termsandcondition} />
+        <Route exact path="/paymentbolts" component={PaymentBolts} />
       </Switch>
     </Router>
   );

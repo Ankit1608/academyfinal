@@ -95,8 +95,11 @@ const typeDefs = gql`
   }
 
   type userstructure {
-    user_id: String
-    user_name: String
+    id: ID
+    tokenVersion: String
+    badges: [badgestructure]
+    certificate: [certificatestructure]
+    payments: [paymentstructure]
     name: String
     profession: String
     profileimageurl: String
@@ -163,6 +166,24 @@ const typeDefs = gql`
     module_name: String
     flag: Int
     question_flag: Int
+  }
+  type badgestructure {
+    course_id: String
+    course_name: String
+    badge_name: String
+    course_badge: String
+  }
+  type certificatestructure {
+    path_id: String
+    path_name: String
+    certificate_version: String
+  }
+  type paymentstructure {
+    transaction_id: String
+    amount: String
+    time_stamp: String
+    flashes: String
+    discount_coupon: discountstructure
   }
 
   input userpathcourseinput {
@@ -237,6 +258,7 @@ const typeDefs = gql`
     content: [String]
   }
   type flashesstructure {
+    id: String
     flashes_no: String
     amount: String
     discount: [discountstructure]

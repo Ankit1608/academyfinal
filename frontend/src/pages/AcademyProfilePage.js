@@ -104,6 +104,7 @@ function AcademyProfilePage({ history }) {
     accept: "image/*",
     onDrop: (acceptedFiles) => {
       setFiles(acceptedFiles[0]);
+      console.log(acceptedFiles[0]);
     },
   });
 
@@ -202,7 +203,7 @@ function AcademyProfilePage({ history }) {
                           alignContent: "center",
                         }}
                       >
-                        <div>
+                        <div style={{ marginBottom: "20px" }}>
                           <div
                             style={{
                               display: "flex",
@@ -216,17 +217,36 @@ function AcademyProfilePage({ history }) {
                                 borderRadius: "50%",
                                 backgroundRepeat: "no-repeat",
                                 backgroundSize: "contain",
+                                backgroundColor: "wheat",
                                 border: "1px solid gray",
-                                backgroundImage: profileuser_data
+                                backgroundImage: files
+                                  ? `url(files.path)`
+                                  : profileuser_data
                                   ? `url(
                                ${profileuser_data.userdata.profileimageurl})`
                                   : `url(
                                 https://lh3.googleusercontent.com/MOf9Kxxkj7GvyZlTZOnUzuYv0JAweEhlxJX6gslQvbvlhLK5_bSTK6duxY2xfbBsj43H=w300)`,
                               }}
                             />
+
+                            {files && (
+                              <>
+                                <div
+                                  style={{
+                                    height: "60px",
+                                    width: "60px",
+                                    borderRadius: "50%",
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundSize: "contain",
+                                    backgroundColor: "wheat",
+                                    backgroundImage: files.path,
+                                  }}
+                                />
+                              </>
+                            )}
                           </div>
 
-                          <div className="App">
+                          <div className="academy-profile-page">
                             <div {...getRootProps()}>
                               <input {...getInputProps()} />
                               <p>Change Profile Picture</p>

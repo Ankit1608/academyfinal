@@ -15,7 +15,6 @@ function UsersPayments() {
     "Amount",
     "Flashes",
     "Discount",
-    "Invoice",
   ];
 
   return (
@@ -35,7 +34,7 @@ function UsersPayments() {
               <TableReusable
                 flag="userpayments"
                 tablelabels={tablelabels}
-                tablelist={data.findallPayments}
+                tablelist={data.finduser}
               ></TableReusable>
             )}
           </div>

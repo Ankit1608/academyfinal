@@ -11,6 +11,7 @@ import {
   coursecarddetails,
   userinprogresscoursesdata,
   userid,
+  courseoverviewcontent,
 } from "../../graphql/gql";
 import { useQuery, useLazyQuery } from "@apollo/react-hooks";
 
@@ -21,6 +22,9 @@ function PathCardExtension({ courses }) {
     lazyuserinprogresscoursesdata,
     { data: inprogresscourses_data, loading: inprogresscourses_loading },
   ] = useLazyQuery(userinprogresscoursesdata);
+  const [findcourse, { data: coursedata }] = useLazyQuery(
+    courseoverviewcontent
+  );
 
   useEffect(() => {
     if (userid_data) {
@@ -32,223 +36,20 @@ function PathCardExtension({ courses }) {
 
   return (
     <div className="pathCardExtension-parent-container">
-      <div className="pathCardExtension-Names">
-        <h1 className="pathCardExtension-header-text">Name</h1>
-        {courses.map((course) => (
-          <div className="pathCardExtension-course-name-container">
-            <h1 className="pathCardExtension-course-name-text">
-              {course.course_name1} {course.course_name2}
-            </h1>
-          </div>
-        ))}
-      </div>
-      <div className="pathCardExtension-Names">
-        <h1 className="pathCardExtension-header-text">Progress</h1>
-        {inprogresscourses_data && (
+      {courses.map((course) => {
+        findcourse({
+          variables: { course_id: course.course_id },
+        });
+        console.log(coursedata);
+        return (
           <div>
-            {courses.map((item) => {
-              var temppercentage = null;
-              var tempnumb = 0;
-              for (
-                var i = 0;
-                i <
-                inprogresscourses_data.userdata.courses.inprogress_courses
-                  .length;
-                i++
-              ) {
-                if (
-                  inprogresscourses_data.userdata.courses.inprogress_courses[i]
-                    .course_id === item.course_id
-                ) {
-                  for (
-                    var k = 0;
-                    k <
-                    inprogresscourses_data.userdata.courses.inprogress_courses[
-                      i
-                    ].module.length;
-                    k++
-                  ) {
-                    if (
-                      inprogresscourses_data.userdata.courses
-                        .inprogress_courses[i].module[k].flag === 2
-                    ) {
-                      tempnumb = tempnumb + 1;
-                    }
-                  }
-                  temppercentage = Math.floor(
-                    (tempnumb /
-                      inprogresscourses_data.userdata.courses
-                        .inprogress_courses[i].module.length) *
-                      100
-                  );
-                }
-              }
-              if (temppercentage === 100) {
-                return (
-                  <div className="pathcardExtension-tik-image-container2">
-                    <div
-                      className="pathCardExtension-tik-image"
-                      style={{ backgroundImage: `url(${Completiontik})` }}
-                    />
-                  </div>
-                );
-              } else if (temppercentage !== null) {
-                return (
-                  <div className="pathcardExtension-tik-image-container">
-                    <MediaQuery minWidth={650}>
-                      <ProgressBar width={200} percent={temppercentage} />
-                    </MediaQuery>
-                    <MediaQuery maxWidth={650}>
-                      <ProgressBar width={100} percent={temppercentage} />
-                    </MediaQuery>
-                  </div>
-                );
-              }
-            })}
+            <div style={{ color: "#777", fontSize: "14px" }}>
+              {course.course_name}
+            </div>
+            <div></div>
           </div>
-        )}
-      </div>
-      <div className="pathCardExtension-Names">
-        <h1 className="pathCardExtension-header-text">Difficulty</h1>
-        {data &&
-          courses.map((course) => {
-            for (var i = 0; i < data.findall.length; i++) {
-              if (course.course_id === data.findall[i].course_id) {
-                return (
-                  <div className="pathCardExtension-tag-container">
-                    <DifficultyTag tag={data.findall[i].difficulty} />
-                  </div>
-                );
-              }
-            }
-          })}
-      </div>
-
-      <div className="pathCardExtension-Names">
-        <h1 className="pathCardExtension-header-text">Grad</h1>
-        {inprogresscourses_data && (
-          <div>
-            {courses.map((course) => {
-              var temppercentage = null;
-              var tempnumb = 0;
-              for (
-                var i = 0;
-                i <
-                inprogresscourses_data.userdata.courses.inprogress_courses
-                  .length;
-                i++
-              ) {
-                if (
-                  inprogresscourses_data.userdata.courses.inprogress_courses[i]
-                    .course_id === course.course_id
-                ) {
-                  for (
-                    var k = 0;
-                    k <
-                    inprogresscourses_data.userdata.courses.inprogress_courses[
-                      i
-                    ].module.length;
-                    k++
-                  ) {
-                    if (
-                      inprogresscourses_data.userdata.courses
-                        .inprogress_courses[i].module[k].flag === 2
-                    ) {
-                      tempnumb = tempnumb + 1;
-                    }
-                  }
-                  temppercentage = Math.floor(
-                    (tempnumb /
-                      inprogresscourses_data.userdata.courses
-                        .inprogress_courses[i].module.length) *
-                      100
-                  );
-                }
-              }
-              if (temppercentage === null) {
-                return <div style={{ backgroundImage: `url(${Flash})` }} />;
-              } else if (temppercentage === 100) {
-                for (var i = 0; i < data.findall.length; i++) {
-                  if (course.course_id === data.findall[i].course_id) {
-                    return (
-                      <div className="pathCardExtension-tag-content">
-                        <GradTag tag={data.findall[i].difficulty} opacity={1} />
-                      </div>
-                    );
-                  }
-                }
-              } else {
-                for (var i = 0; i < data.findall.length; i++) {
-                  if (course.course_id === data.findall[i].course_id) {
-                    return (
-                      <div className="pathCardExtension-tag-content">
-                        <GradTag
-                          tag={data.findall[i].difficulty}
-                          opacity={0.4}
-                        />
-                      </div>
-                    );
-                  }
-                }
-              }
-            })}
-          </div>
-        )}
-      </div>
-
-      <div className="pathCardExtension-Names">
-        <h1 className="pathCardExtension-header-text">Begin</h1>
-        {inprogresscourses_data &&
-          courses.map((item) => {
-            var mod = null;
-            for (
-              var i = 0;
-              i <
-              inprogresscourses_data.userdata.courses.inprogress_courses.length;
-              i++
-            ) {
-              if (
-                inprogresscourses_data.userdata.courses.inprogress_courses[i]
-                  .course_id === item.course_id
-              ) {
-                for (
-                  var k = 0;
-                  k <
-                  inprogresscourses_data.userdata.courses.inprogress_courses[i]
-                    .module.length;
-                  k++
-                ) {
-                  if (
-                    inprogresscourses_data.userdata.courses.inprogress_courses[
-                      i
-                    ].module[k].flag === 1
-                  ) {
-                    mod =
-                      inprogresscourses_data.userdata.courses
-                        .inprogress_courses[i].module[k].module_id;
-                  }
-                }
-                if (mod === null) {
-                  mod =
-                    inprogresscourses_data.userdata.courses.inprogress_courses[
-                      i
-                    ].module[0].module_id;
-                }
-              }
-            }
-
-            return (
-              <Link
-                to={`/videocourses/${item.course_id}/${mod}`}
-                style={{ textDecoration: "none" }}
-              >
-                <div className="path-extension-course-component-enroll">
-                  <p>Continue</p>
-                </div>
-              </Link>
-            );
-          })}
-      </div>
+        );
+      })}
     </div>
   );
 }

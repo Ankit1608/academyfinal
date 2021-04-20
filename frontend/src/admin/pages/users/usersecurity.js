@@ -1,22 +1,15 @@
 import React from "react";
 
 import TableReusable from "../../components/TableReusable";
-import { findallUsers } from "../../graphql/gql";
+import { finduser } from "../../graphql/gql";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import { useQuery } from "@apollo/react-hooks";
 
 function UsersSecurity() {
-  const { data, loading } = useQuery(findallUsers);
-  const tablelabels = [
-    "User ID",
-    "UserName",
-    "Name",
-    "Email",
-    "tokenVersion",
-    "Increment",
-  ];
+  const { data, loading } = useQuery(finduser);
+  const tablelabels = ["User ID", "Name", "Email", "tokenVersion", "Increment"];
 
   return (
     <div style={{ display: "flex" }}>
@@ -35,7 +28,7 @@ function UsersSecurity() {
               <TableReusable
                 flag="usersecurity"
                 tablelabels={tablelabels}
-                tablelist={data.findallUsers}
+                tablelist={data.finduser}
               ></TableReusable>
             )}
           </div>

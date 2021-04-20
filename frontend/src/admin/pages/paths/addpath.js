@@ -15,7 +15,7 @@ import { MenuItem, TextareaAutosize } from "@material-ui/core";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import { addpath, addflash, findall } from "../../graphql/gql";
+import { addpath, findall } from "../../graphql/gql";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 function AddPath() {
   const [createpath, res] = useMutation(addpath);
   const { data, loading } = useQuery(findall);
-
+  const [certificateversion, Setcertificateversion] = useState("");
   const classes = useStyles();
   const [inputFields, setInputFields] = useState([
     { id: uuidv4(), course_name_temp: "", course_name: "", course_id: "" },
@@ -47,6 +47,7 @@ function AddPath() {
         path_title1: pathtitle1,
         path_title2: pathtitle2,
         description: description,
+        certificateversion: certificateversion,
         difficulty: difficulty,
         flashes: flashes,
         courses: newArr,
@@ -141,6 +142,19 @@ function AddPath() {
                 />
               </div>
               <div>
+                <TextField
+                  required
+                  name="certificate"
+                  label="Certificate Version"
+                  variant="filled"
+                  value={certificateversion}
+                  placeholder="Certificate Version"
+                  onChange={(e) => {
+                    Setcertificateversion(e.target.value);
+                  }}
+                />
+              </div>
+              <div>
                 <TextareaAutosize
                   style={{ width: "90%", margin: "8px" }}
                   rowsMin="10"
@@ -219,7 +233,6 @@ function AddPath() {
               </Button>
             </form>
           </Container>
-          <p>Dashboard</p>
         </div>
         <Footer />
       </div>

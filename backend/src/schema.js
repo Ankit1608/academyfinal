@@ -10,6 +10,11 @@ let courseSchema = new mongoose.Schema(
     description: String,
     difficulty: String,
     flashes: String,
+    certificate_version: String,
+    badges: {
+      course_badge: String,
+      badge_name: String,
+    },
     overview: {
       coursedetailscontent: [
         {
@@ -62,7 +67,6 @@ let pathSchema = new mongoose.Schema(
 );
 
 let userSchema = new mongoose.Schema({
-  user_name: String,
   name: String,
   profession: String,
   email: String,
@@ -77,9 +81,24 @@ let userSchema = new mongoose.Schema({
     default: "30",
   },
   tokenVersion: {
-    type: Number,
-    default: 0,
+    type: String,
+    default: "0",
   },
+  badges: [
+    {
+      course_id: String,
+      course_name: String,
+      course_badge: String,
+      badge_name: String,
+    },
+  ],
+  certificate: [
+    {
+      path_id: String,
+      path_name: String,
+      certificate_version: String,
+    },
+  ],
   courses: {
     inprogress_courses: [
       {
@@ -107,7 +126,7 @@ let userSchema = new mongoose.Schema({
         courses: [
           {
             course_id: String,
-            course_name1: String,
+            course_name: String,
             flag: Number,
           },
         ],
@@ -122,14 +141,14 @@ let userSchema = new mongoose.Schema({
       time_stamp: String,
       flashes: String,
       discount_coupon: {
-        discount_code: String,
-        discount: String,
+        discount_coupon: String,
+        discount_percent: String,
       },
     },
   ],
 });
 
-let flasheesschema = new mongoose.Schema(
+let flashesschema = new mongoose.Schema(
   {
     flashes_no: String,
     amount: String,
@@ -145,5 +164,5 @@ let flasheesschema = new mongoose.Schema(
 var Users = mongoose.model("users", userSchema);
 var Paths = mongoose.model("paths", pathSchema);
 var Courses = mongoose.model("courses", courseSchema);
-var Flashes = mongoose.model("flashes", flasheesschema);
+var Flashes = mongoose.model("flashes", flashesschema);
 module.exports = { Courses, Paths, Users, Flashes };

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { FaBars, FaBell, FaUser } from "react-icons/fa";
+import { FaBars, FaBell, FaSortDown, FaUser } from "react-icons/fa";
 import Dropdown from "./Dropdown";
 
 function Header() {
-  const [dropdown, setDropdown] = useState(true);
+  const [drop, setDrop] = useState(false);
+  const dropdownenable = () => {
+    setDrop(!drop);
+  };
   return (
     <div
       style={{
@@ -27,18 +30,24 @@ function Header() {
           alignContent: "center",
         }}
       >
-        <div style={{ paddingRight: "20px" }}>
+        <div style={{ paddingRight: "30px" }}>
           <FaBell size={20} />
-          {dropdown && <Dropdown />}
         </div>
         <div
-          style={{
-            height: "40px",
-            width: "40px",
-            borderRadius: "50%",
-            backgroundColor: "blue",
-          }}
-        ></div>
+          onClick={dropdownenable}
+          style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+        >
+          <div
+            style={{
+              height: "40px",
+              width: "40px",
+              borderRadius: "50%",
+              backgroundColor: "blue",
+            }}
+          />
+          <FaSortDown />
+          {drop && <Dropdown />}
+        </div>
       </div>
     </div>
   );

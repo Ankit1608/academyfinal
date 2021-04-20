@@ -2,14 +2,22 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 
 import TableReusable from "../../components/TableReusable";
-import { findallUsers } from "../../graphql/gql";
+import { finduser } from "../../graphql/gql";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 
-function UsersGist() {
-  const { data, loading } = useQuery(findallUsers);
-  const tablelabels = ["Name", "UserName", "Email", "Badges", "Certificates"];
+function UsersGist({ history }) {
+  const { data, loading } = useQuery(finduser);
+  const tablelabels = [
+    "Name",
+    "Profession",
+    "Email",
+    "Badges",
+    "Certificates",
+    "Flashes",
+    "More",
+  ];
 
   return (
     <div style={{ display: "flex" }}>
@@ -28,7 +36,8 @@ function UsersGist() {
               <TableReusable
                 flag="usergist"
                 tablelabels={tablelabels}
-                tablelist={data.findallUsers}
+                tablelist={data.finduser}
+                history={history}
               ></TableReusable>
             )}
           </div>

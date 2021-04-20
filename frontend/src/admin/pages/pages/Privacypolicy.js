@@ -6,7 +6,7 @@ import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import TableReusable from "../../components/TableReusable";
 import { findallflashes } from "../../graphql/gql";
-function AllFlashes() {
+function Privacypolicy() {
   const { data, loading } = useQuery(findallflashes);
   const tablelabels = [
     "ID",
@@ -20,28 +20,11 @@ function AllFlashes() {
       <Sidebar />
       <div style={{ width: "100%" }}>
         <Header />
-        <div style={{ minHeight: "100vh", backgroundColor: "#ebedef" }}>
-          <div
-            style={{
-              height: "100%",
-              width: "100%",
-              backgroundColor: "#fff",
-            }}
-          >
-            {data && console.log(data.findallflashes)}
-            {data && (
-              <TableReusable
-                flag="allflashes"
-                tablelabels={tablelabels}
-                tablelist={data.findallflashes}
-              ></TableReusable>
-            )}
-          </div>
-        </div>
+        <div style={{ minHeight: "100vh", backgroundColor: "#ebedef" }}></div>
         <Footer />
       </div>
     </div>
   );
 }
 
-export default AllFlashes;
+export default Privacypolicy;

@@ -14,7 +14,7 @@ function AllPaths() {
     "PathName",
     "Difficulty",
     "Flashes",
-    "Modules",
+    "Courses",
     "More",
   ];
 
@@ -31,6 +31,7 @@ function AllPaths() {
               backgroundColor: "#fff",
             }}
           >
+            {data && console.log(data.findallpaths)}
             {data && (
               <TableReusable
                 flag="allpaths"

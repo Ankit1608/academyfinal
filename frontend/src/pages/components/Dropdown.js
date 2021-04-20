@@ -4,6 +4,13 @@ import "./Dropdown.css";
 import { Link } from "react-router-dom";
 import { logout } from "../../graphql/gql";
 import { useMutation } from "@apollo/react-hooks";
+import {
+  FaAssistiveListeningSystems,
+  FaBolt,
+  FaBook,
+  FaCog,
+  FaNetworkWired,
+} from "react-icons/fa";
 
 const MenuItems = [
   {
@@ -50,11 +57,53 @@ function Dropdown() {
     <>
       <ul
         onClick={handleClick}
-        className={click ? "dropdown-menu clicked" : "dropdown-menu"}
+        className={click ? "dropdown-list clicked" : "dropdown-list"}
       >
         {MenuItems.map((item, index) => {
           return (
-            <li key={index}>
+            <li key={index} className="dropdown-list-li-container">
+              {item.id === "dropdown-courses" && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginLeft: "8px",
+                  }}
+                >
+                  <FaBook size={12} />
+                </div>
+              )}
+              {item.id === "dropdown-paths" && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginLeft: "8px",
+                  }}
+                >
+                  <FaNetworkWired size={12} />
+                </div>
+              )}
+              {item.id === "dropdown-settings" && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginLeft: "8px",
+                  }}
+                >
+                  <FaCog size={12} />
+                </div>
+              )}
+              {item.id === "dropdown-settings" && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginLeft: "8px",
+                  }}
+                ></div>
+              )}
               <Link
                 className={item.cName}
                 to={item.path}

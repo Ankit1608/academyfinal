@@ -14,10 +14,14 @@ function Footer() {
         justifyContent: "space-between",
         alignItems: "center",
         padding: "0px 5px",
+        fontFamily: "sans-serif",
+        fontSize: "13px",
       }}
     >
       <p>Kleen Security @2021</p>
-      <p>Powered by Kleen Security</p>
+      <p>
+        Powered by<span style={{ color: "purple" }}> Kleen Security</span>
+      </p>
     </div>
   );
 }

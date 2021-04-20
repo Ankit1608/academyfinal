@@ -22,13 +22,16 @@ function loadScript(src) {
 
 const __DEV__ = document.domain === "localhost";
 
-function BuyBoults({ flashes }) {
+function BuyBoults({ flashes, history }) {
   const { data: allflashesData, loading: allflashesloading } = useQuery(
     findallflashes
   );
 
   const [name, setName] = useState("Mehul");
 
+  function paymentPage() {
+    history.push("/paymentbolts");
+  }
   async function displayRazorpay() {
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
@@ -106,11 +109,11 @@ function BuyBoults({ flashes }) {
 
       {renderListing2.map((item) => (
         <div className="buyboults-row1">
-          <div onClick={displayRazorpay}>
+          <div onClick={paymentPage}>
             <BuyBoultsCard
               bolts={item[0].flashes_no}
               price={item[0].amount}
-              onClick={displayRazorpay}
+              onClick={paymentPage}
             />
           </div>
           {item.length >= 2 && (
@@ -120,7 +123,7 @@ function BuyBoults({ flashes }) {
             <BuyBoultsCard
               bolts={item[2].flashes_no}
               price={item[2].amount}
-              onClick={displayRazorpay}
+              onClick={paymentPage}
             />
           )}
         </div>

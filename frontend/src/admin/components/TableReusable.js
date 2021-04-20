@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import Popup from "./Popup";
 import "./TableReusable.css";
-function CtfTablelist({ flag, tablelabels, tablelist }) {
+function CtfTablelist({ flag, tablelabels, tablelist, history }) {
+  const [userDelete, setUserDelete] = useState(-1);
+  const [userEdit, setUserEdit] = useState(-1);
+  const [deleteuseremail, setDeleteUserEmail] = useState("");
+
+  const handleUserGistEdit = (id) => {};
+  const handleUserGistDelete = (id, email) => {
+    setDeleteUserEmail(email);
+    setUserDelete(0);
+  };
   return (
     <>
       {flag === "usergist" && (
@@ -23,10 +34,38 @@ function CtfTablelist({ flag, tablelabels, tablelist }) {
                   <>
                     <tr className="table-data">
                       <td>{item.name}</td>
-                      <td>{item.user_name} </td>
+                      <td>{item.profession} </td>
                       <td>{item.email}</td>
                       <td>{item.badges.length}</td>
-                      <td>{item.certificates.length}</td>
+                      <td>{item.certificate.length}</td>
+                      <td>{item.flashes}</td>
+                      <td>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            marginRight: "-15px",
+                          }}
+                        >
+                          <div
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              handleUserGistEdit(item.id);
+                            }}
+                          >
+                            <FaPencilAlt size={15} color="green" />
+                          </div>
+                          <div
+                            style={{ marginLeft: "10px", cursor: "pointer" }}
+                            onClick={() => {
+                              console.log(item.email);
+                              handleUserGistDelete(item.id, item.email);
+                            }}
+                          >
+                            <FaTrashAlt size={15} color="tomato" />
+                          </div>
+                        </div>
+                      </td>
                     </tr>
                   </>
                 );
@@ -59,8 +98,9 @@ function CtfTablelist({ flag, tablelabels, tablelist }) {
                       <td>{item.time_stamp}</td>
                       <td>{item.amount}</td>
                       <td>{item.flashes}</td>
-                      <td>{item.discount_coupon.discount}</td>
-                      <td>{item.invoice}</td>
+                      {item.discount_coupon && (
+                        <td>{item.discount_coupon.discount_percent}</td>
+                      )}
                     </tr>
                   </>
                 );
@@ -89,7 +129,6 @@ function CtfTablelist({ flag, tablelabels, tablelist }) {
                   <>
                     <tr className="table-data">
                       <td>{item.id}</td>
-                      <td>{item.user_name}</td>
                       <td>{item.name}</td>
                       <td>{item.email}</td>
                       <td>{item.tokenVersion}</td>
@@ -212,6 +251,50 @@ function CtfTablelist({ flag, tablelabels, tablelist }) {
             </tbody>
           </table>
         </div>
+      )}
+      {flag === "payments" && (
+        <div>
+          <table
+            id="ctftable"
+            style={{
+              width: "100%",
+              color: "#ffffff",
+            }}
+          >
+            <tbody>
+              <tr className="table-header">
+                {tablelabels.map((label) => (
+                  <td>{label}</td>
+                ))}
+              </tr>
+              {tablelist.map((item) => {
+                return (
+                  <>
+                    <tr className="table-data">
+                      <td>{item.id}</td>
+                      <td>{item.flashes_no}</td>
+                      <td> {item.amount}</td>
+                      <td>{item.discount.length}</td>
+                      <td>Button</td>
+                    </tr>
+                  </>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {userDelete === 0 && (
+        <Popup trigger={true} setTrigger={setUserDelete}>
+          <h1 className="popup-title">Deleting {deleteuseremail}!</h1>
+          <p className="popup-message">Are you sure you want to delete user </p>
+        </Popup>
+      )}
+      {userEdit === 0 && (
+        <Popup trigger={true} setTrigger={setUserEdit}>
+          <h1 className="popup-title"></h1>
+          <p className="popup-message">Are you sure you want to delete user </p>
+        </Popup>
       )}
     </>
   );

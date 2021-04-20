@@ -18,24 +18,22 @@ import {
 } from "react-icons/fa";
 import "react-pro-sidebar/dist/css/styles.css";
 import { Link } from "react-router-dom";
-
+import logo from "../../pages/images/mainlogo.png";
 import "./Sidebar.css";
 function Sidebar() {
   return (
     <div className="sidebar">
-      <ProSidebar
-        collapsed={false}
-        image={"https://picsum.photos/200/300"}
-        width="20vw"
-      >
+      <ProSidebar collapsed={false} width="20vw">
         <SidebarHeader>
-          <h1>Wassap</h1>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <img style={{ height: 40, opacity: 0.6 }} src={logo} />
+          </div>
         </SidebarHeader>
         <SidebarContent>
           <Menu iconShape="circle" popperArrow={true}>
             <MenuItem icon={<FaTv />}>
               {" "}
-              <Link to="/" />
+              <Link to="/admindashboard" />
               Dashboard
             </MenuItem>
             <SubMenu title="Users" icon={<FaUser />}>
@@ -89,14 +87,24 @@ function Sidebar() {
 
             <SubMenu title="Pages" icon={<FaRegPaperPlane />}>
               <MenuItem>
-                <Link to="/footer" />
-                Footer
+                <Link to="/socialhandle" />
+                Social Handles
+              </MenuItem>
+              <MenuItem>
+                <Link to="/privacypolicy" />
+                Privacy Policy
+              </MenuItem>
+              <MenuItem>
+                <Link to="/termsandcondition" />
+                Terms & Condition
               </MenuItem>
             </SubMenu>
           </Menu>
         </SidebarContent>
         <SidebarFooter>
-          <h5>kleen</h5>
+          <h5 style={{ display: "flex", justifyContent: "center" }}>
+            Kleen Security
+          </h5>
         </SidebarFooter>
       </ProSidebar>
     </div>
