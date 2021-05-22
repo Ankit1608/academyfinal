@@ -62,6 +62,7 @@ function AcademyProfilePage({ history }) {
         });
         try {
           if (files) {
+            console.log(files);
             const response = await s3sign({
               variables: {
                 filename: formatFilename(files.name),
@@ -70,7 +71,7 @@ function AcademyProfilePage({ history }) {
             });
             const { signedRequest, url } = response.data.signS3;
             await uploadToS3(files, signedRequest);
-
+            console.log(typeof files);
             if (userid_data) {
               // const response2 = await deletecurrentimg({
               //   variables: {
